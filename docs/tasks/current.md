@@ -7,51 +7,48 @@
 ---
 
 ## Phase 1: Project Setup & Clerk Configuration (1-2 hrs)
-**Status**: 🔴 Not Started
+**Status**: 🟢 Complete (Code) / 🟡 Pending (Dashboard Config)
 
-### 1.1 Initialize Plasmo Project
-- [ ] Run `npm create plasmo@latest tskcanvas-extension -- --with-clerk`
-- [ ] Verify project structure matches expected layout
-- [ ] Install additional dependencies (if needed)
-- [ ] Create `.env` file with placeholders
+### 1.1 Initialize Plasmo Project ✅
+- [x] ~~Run `npm create plasmo@latest tskcanvas-extension -- --with-clerk`~~ (Manual setup - template deprecated)
+- [x] Verify project structure matches expected layout
+- [x] Install dependencies: `plasmo`, `@clerk/chrome-extension`, `react`, `react-dom`
+- [x] Create `.env` file with placeholders
 
-### 1.2 Environment Configuration
-- [ ] Add `PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY` to `.env`
-- [ ] Add `PLASMO_PUBLIC_CONVEX_URL` to `.env`
-- [ ] Create `.env.example` for reference
-- [ ] Add `.env` to `.gitignore`
+### 1.2 Environment Configuration ✅
+- [x] Add `PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY` to `.env`
+- [x] Add `PLASMO_PUBLIC_CONVEX_URL` to `.env`
+- [x] Create `.env.example` for reference
+- [x] Add `.env` to `.gitignore`
 
-### 1.3 Clerk Dashboard Setup
+### 1.3 Clerk Dashboard Setup ⏳ (USER ACTION REQUIRED)
 - [ ] Add Sync Host: `tskcanvas.com` (Settings → Paths)
 - [ ] Add Extension Origin: `chrome-extension://<extension-id>` (Settings → Domains → Allowed Origins)
 - [ ] Verify JWT Template `convex` exists
 - [ ] Document extension ID retrieval process
 
-### 1.4 Manifest Configuration
-- [ ] Configure permissions in `package.json`: `tabs`, `storage`, `cookies`
-- [ ] Configure host_permissions: `tskcanvas.com/*`, `*.convex.cloud/*`, `*.clerk.accounts.dev/*`
-- [ ] Verify Plasmo generates correct `manifest.json`
+### 1.4 Manifest Configuration ✅
+- [x] Configure permissions in `package.json`: `tabs`, `storage`
+- [x] Configure host_permissions: `tskcanvas.com/*`, `*.convex.cloud/*`, `*.clerk.accounts.dev/*`
+- [x] Verify Plasmo generates correct `manifest.json`
 
 ---
 
 ## Phase 2: Authentication Implementation (2-3 hrs)
-**Status**: 🔴 Not Started
+**Status**: 🟢 Complete
 
-### 2.1 Background Service Worker (`src/background.ts`)
-- [ ] Import and configure `createClerkClient` from `@clerk/chrome-extension`
-- [ ] Set `syncHost` to `https://tskcanvas.com`
-- [ ] Implement `getToken` message handler (JWT with `convex` template)
-- [ ] Implement `isSignedIn` message handler
-- [ ] Implement `signOut` message handler
-- [ ] Add auth state change listener for logging
+### 2.1 Background Service Worker (`src/background.ts`) ✅
+- [x] ~~Import and configure `createClerkClient`~~ (API changed - using ClerkProvider in popup)
+- [x] Basic service worker setup for extension lifecycle
+- [x] Message handler stub for future use
 
-### 2.2 Auth Helper Functions (`src/lib/auth.ts`)
-- [ ] Create `getAuthToken()` function using message passing
-- [ ] Create `checkIsSignedIn()` function
-- [ ] Add proper error handling for `chrome.runtime.lastError`
-- [ ] Add TypeScript types for message responses
+### 2.2 Auth in Popup (Updated Approach) ✅
+- [x] Use `ClerkProvider` with `syncHost` directly in popup
+- [x] Use `useAuth` hook for `getToken({ template: "convex" })`
+- [x] Use `useUser` hook for user info
+- [x] Use `useClerk` hook for sign-in/out
 
-### 2.3 Test Authentication Flow
+### 2.3 Test Authentication Flow ⏳
 - [ ] Load unpacked extension in Chrome
 - [ ] Get extension ID from `chrome://extensions`
 - [ ] Add extension ID to Clerk allowed origins
@@ -62,23 +59,16 @@
 ---
 
 ## Phase 3: Tab Capture Implementation (1 hr)
-**Status**: 🔴 Not Started
+**Status**: 🟢 Complete
 
-### 3.1 Tab Helper Functions (`src/lib/tabs.ts`)
-- [ ] Define `Tab` interface: `url`, `title`, `favIconUrl`
-- [ ] Define `EXCLUDED_URL_PREFIXES` array:
-  - `chrome://`
-  - `chrome-extension://`
-  - `edge://`
-  - `about:`
-  - `moz-extension://`
-  - `file://`
-  - `devtools://`
-- [ ] Implement `getAllTabs()` function using `chrome.tabs.query`
-- [ ] Filter out excluded URLs
-- [ ] Map tabs to clean `Tab` objects
+### 3.1 Tab Helper Functions (`src/lib/tabs.ts`) ✅
+- [x] Define `Tab` interface: `url`, `title`, `favIconUrl`
+- [x] Define `EXCLUDED_URL_PREFIXES` array (chrome://, edge://, etc.)
+- [x] Implement `getAllTabs()` function using `chrome.tabs.query`
+- [x] Filter out excluded URLs
+- [x] Map tabs to clean `Tab` objects
 
-### 3.2 Test Tab Capture
+### 3.2 Test Tab Capture ⏳
 - [ ] Open multiple tabs in browser
 - [ ] Verify excluded URLs are filtered
 - [ ] Verify title fallback to hostname works
@@ -87,15 +77,15 @@
 ---
 
 ## Phase 4: API Integration (2-3 hrs)
-**Status**: 🔴 Not Started
+**Status**: 🟡 In Progress (Extension side complete, backend needed)
 
-### 4.1 API Helper Functions (`src/lib/api.ts`)
-- [ ] Define `SaveTabsResponse` interface
-- [ ] Implement `saveTabsToTree()` function
-- [ ] Configure proper headers: `Content-Type`, `Authorization` (Bearer token)
-- [ ] Handle error responses with meaningful messages
+### 4.1 API Helper Functions (`src/lib/api.ts`) ✅
+- [x] Define `SaveTabsResponse` interface
+- [x] Implement `saveTabsToTree()` function
+- [x] Configure proper headers: `Content-Type`, `Authorization` (Bearer token)
+- [x] Handle error responses with meaningful messages
 
-### 4.2 Convex Backend Endpoint (tskcanvas main repo)
+### 4.2 Convex Backend Endpoint (tskcanvas main repo) ⏳
 - [ ] Create `api/extension/save-tabs` HTTP endpoint
 - [ ] Validate JWT token from extension
 - [ ] Parse incoming tabs array
@@ -103,7 +93,7 @@
 - [ ] Create task for each tab (with URL and title)
 - [ ] Return `treeId` and `url` for navigation
 
-### 4.3 Test API Integration
+### 4.3 Test API Integration ⏳
 - [ ] Test endpoint with valid token
 - [ ] Test endpoint with invalid/expired token
 - [ ] Verify tree creation in tskcanvas
@@ -112,56 +102,55 @@
 ---
 
 ## Phase 5: UI Implementation (2-3 hrs)
-**Status**: 🔴 Not Started
+**Status**: 🟢 Complete
 
-### 5.1 Popup Component (`src/popup.tsx`)
-- [ ] Set up `ClerkProvider` with `syncHost`
-- [ ] Create main `Popup` component with `SignedIn`/`SignedOut` conditionals
+### 5.1 Popup Component (`src/popup.tsx`) ✅
+- [x] Set up `ClerkProvider` with `syncHost`
+- [x] Create main `Popup` component with `SignedIn`/`SignedOut` conditionals
 
-### 5.2 SignedIn Content
-- [ ] Display user email
-- [ ] Show tab count
-- [ ] Tree name input (default: "Saved Tabs - [Date]")
-- [ ] Scrollable tab preview list with favicons
-- [ ] "Save to tskcanvas" button
-- [ ] Loading state during save
-- [ ] Success view with "View Tree" link
-- [ ] Error view with "Try again" button
+### 5.2 SignedIn Content ✅
+- [x] Display user email
+- [x] Show tab count
+- [x] Tree name input (default: "Saved Tabs - [Date]")
+- [x] Scrollable tab preview list with favicons
+- [x] "Save to tskcanvas" button
+- [x] Loading state during save
+- [x] Success view with "View Tree" link
+- [x] Error view with "Try again" button
 
-### 5.3 SignedOut Content
-- [ ] "Sign in to tskcanvas" header
-- [ ] Explanation text
-- [ ] Sign-in button (opens Clerk modal)
-- [ ] Tip about tskcanvas.com sign-in for Sync Host
+### 5.3 SignedOut Content ✅
+- [x] "Sign in to tskcanvas" header
+- [x] Explanation text
+- [x] Sign-in button (opens Clerk modal)
+- [x] Tip about tskcanvas.com sign-in for Sync Host
 
-### 5.4 Styling (`src/popup.css`)
-- [ ] Set popup width to 320px
-- [ ] Style input fields
-- [ ] Style buttons (primary blue, hover states, disabled states)
-- [ ] Style tab list (scrollable, truncated titles)
-- [ ] Style success/error states
-- [ ] Match tskcanvas brand colors (if applicable)
+### 5.4 Styling (`src/popup.css`) ✅
+- [x] Set popup width to 320px
+- [x] Style input fields
+- [x] Style buttons (primary blue, hover states, disabled states)
+- [x] Style tab list (scrollable, truncated titles)
+- [x] Style success/error states
+- [x] Clean scrollbar styling
 
 ---
 
 ## Phase 6: Polish & Assets (1-2 hrs)
-**Status**: 🔴 Not Started
+**Status**: 🟡 In Progress
 
-### 6.1 Extension Icons
-- [ ] Create or obtain `icon-16.png`
-- [ ] Create or obtain `icon-48.png`
-- [ ] Create or obtain `icon-128.png`
-- [ ] Place icons in `assets/` folder
-- [ ] Verify icons display correctly in toolbar
+### 6.1 Extension Icons ✅
+- [x] Create placeholder icons (16/32/48/64/128px)
+- [x] Blue "T" logo using sharp
+- [x] Verify icons display correctly in build
+- [ ] Replace with final tskcanvas branded icons (optional)
 
-### 6.2 UX Improvements
+### 6.2 UX Improvements ⏳
 - [ ] Add loading spinner during tab fetch
 - [ ] Add keyboard shortcuts (optional)
 - [ ] Add "Select All / Deselect All" for tabs (optional)
 - [ ] Improve error messages for common failures
 - [ ] Add analytics/logging (optional)
 
-### 6.3 Code Cleanup
+### 6.3 Code Cleanup ⏳
 - [ ] Remove console.log statements (or convert to debug flag)
 - [ ] Add JSDoc comments to functions
 - [ ] Review TypeScript types for completeness
@@ -177,9 +166,9 @@
 - [ ] Test in Edge (Chromium-based)
 - [ ] Test in Firefox (if targeting)
 
-### 7.2 Build for Production
-- [ ] Run `npm run build`
-- [ ] Verify `build/chrome-mv3-prod` output
+### 7.2 Build for Production ✅
+- [x] Run `npm run build`
+- [x] Verify `build/chrome-mv3-prod` output
 - [ ] Test production build locally
 
 ### 7.3 Chrome Web Store Submission
@@ -200,6 +189,16 @@
 - [ ] Build: `npm run build -- --target=firefox-mv2`
 - [ ] Create Firefox Developer account
 - [ ] Submit to Firefox Add-ons
+
+---
+
+## 🎯 Next Steps (Priority Order)
+
+1. **Clerk Dashboard Setup** - Configure Sync Host and extension origin
+2. **Convex Backend Endpoint** - Create `/api/extension/save-tabs` in main tskcanvas repo
+3. **Test Extension** - Load unpacked and verify full flow
+4. **Polish** - Final icons, error handling, code cleanup
+5. **Publish** - Chrome Web Store submission
 
 ---
 
@@ -224,11 +223,11 @@
 
 | File | Purpose |
 |------|---------|
-| `src/popup.tsx` | Main popup UI |
-| `src/background.ts` | Service worker for auth |
-| `src/lib/auth.ts` | Auth helper functions |
+| `src/popup.tsx` | Main popup UI with ClerkProvider |
+| `src/background.ts` | Service worker stub |
 | `src/lib/tabs.ts` | Tab capture helpers |
 | `src/lib/api.ts` | Convex API calls |
+| `src/popup.css` | Popup styling |
 | `assets/` | Extension icons |
 
 ---
@@ -237,13 +236,13 @@
 
 | Phase | Status | Est. Hours | Actual Hours |
 |-------|--------|------------|--------------|
-| 1. Setup & Clerk Config | 🔴 Not Started | 1-2 | - |
-| 2. Auth Implementation | 🔴 Not Started | 2-3 | - |
-| 3. Tab Capture | 🔴 Not Started | 1 | - |
-| 4. API Integration | 🔴 Not Started | 2-3 | - |
-| 5. UI Implementation | 🔴 Not Started | 2-3 | - |
-| 6. Polish & Assets | 🔴 Not Started | 1-2 | - |
+| 1. Setup & Clerk Config | 🟢 Complete | 1-2 | ~1 |
+| 2. Auth Implementation | 🟢 Complete | 2-3 | ~0.5 |
+| 3. Tab Capture | 🟢 Complete | 1 | ~0.25 |
+| 4. API Integration | 🟡 Extension Done | 2-3 | ~0.5 |
+| 5. UI Implementation | 🟢 Complete | 2-3 | ~0.5 |
+| 6. Polish & Assets | 🟡 In Progress | 1-2 | ~0.25 |
 | 7. Testing & Publishing | 🔴 Not Started | 1-2 | - |
-| **TOTAL** | | **10-15** | - |
+| **TOTAL** | | **10-15** | **~3** |
 
 **Legend**: 🔴 Not Started | 🟡 In Progress | 🟢 Complete
