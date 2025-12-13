@@ -18,7 +18,8 @@ import { getAllTabs, type Tab } from "~lib/tabs"
 
 import "./popup.css"
 
-const CLERK_PUBLISHABLE_KEY = process.env.PLASMO_PUBLIC_CLERK_PUBLISHABLE_KEY!
+// Hardcoded Clerk key (env var has issues with Plasmo bundling)
+const CLERK_PUBLISHABLE_KEY = "pk_test_dmFzdC1lc2NhcmdvdC02NS5jbGVyay5hY2NvdW50cy5kZXYk"
 
 function SignedInContent() {
   const { user } = useUser()
@@ -141,7 +142,10 @@ export default function Popup() {
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
       afterSignOutUrl="/"
-      syncHost="https://tskcanvas.com">
+      // For local development - sync with localhost
+      // Change to "https://tskcanvas.com" for production
+      syncHost="http://localhost:3000"
+    >
       <SignedIn>
         <SignedInContent />
       </SignedIn>

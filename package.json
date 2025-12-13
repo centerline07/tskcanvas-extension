@@ -25,9 +25,11 @@
   "manifest": {
     "permissions": [
       "tabs",
-      "storage"
+      "storage",
+      "cookies"
     ],
     "host_permissions": [
+      "http://localhost:3000/*",
       "https://tskcanvas.com/*",
       "https://*.convex.cloud/*",
       "https://*.clerk.accounts.dev/*"
