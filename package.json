@@ -1,0 +1,36 @@
+{
+  "name": "tskcanvas-extension",
+  "displayName": "tskcanvas Tab Saver",
+  "version": "0.1.0",
+  "description": "Save all open browser tabs as a new tree in tskcanvas with one click",
+  "author": "centerline07",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@clerk/chrome-extension": "^2.1.3",
+    "plasmo": "^0.90.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "sharp": "^0.34.5",
+    "typescript": "^5.7.2"
+  },
+  "manifest": {
+    "permissions": [
+      "tabs",
+      "storage"
+    ],
+    "host_permissions": [
+      "https://tskcanvas.com/*",
+      "https://*.convex.cloud/*",
+      "https://*.clerk.accounts.dev/*"
+    ]
+  }
+}
