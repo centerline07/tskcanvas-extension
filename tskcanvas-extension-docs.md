@@ -1,3 +1,4 @@
+## Copied to takcanvas repo 
 # tskcanvas Browser Extension
 
 > Save all open browser tabs as a new tree in tskcanvas with one click.

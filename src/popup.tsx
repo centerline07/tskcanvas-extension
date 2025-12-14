@@ -43,14 +43,20 @@ function SignedInContent() {
   }, [])
 
   const handleSave = async () => {
+    console.log("[tskcanvas] handleSave called")
     setSaving(true)
     try {
+      console.log("[tskcanvas] Getting token...")
       const token = await getToken({ template: "convex" })
+      console.log("[tskcanvas] Token result:", token ? "got token" : "NO TOKEN")
       if (!token) throw new Error("Not authenticated")
 
+      console.log("[tskcanvas] Calling saveTabsToTree...")
       const response = await saveTabsToTree(token, treeName, tabs)
+      console.log("[tskcanvas] saveTabsToTree response:", response)
       setResult({ success: true, url: response.url })
     } catch (error) {
+      console.error("[tskcanvas] handleSave error:", error)
       setResult({ success: false, error: (error as Error).message })
     }
     setSaving(false)
@@ -142,9 +148,8 @@ export default function Popup() {
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
       afterSignOutUrl="/"
-      // For local development - sync with localhost
-      // Change to "https://tskcanvas.com" for production
-      syncHost="http://localhost:3000"
+      // Sync auth with tskcanvas.com
+      syncHost="https://tskcanvas.com"
     >
       <SignedIn>
         <SignedInContent />
