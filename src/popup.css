@@ -83,6 +83,24 @@ html, body {
   border-color: #3b82f6;
 }
 
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #3b82f6;
+}
+
 /* Tabs List */
 .tabs-list {
   max-height: 200px;
@@ -190,6 +208,129 @@ html, body {
   color: #999;
   text-align: center;
   margin-top: 12px;
+}
+
+/* Welcome/Sign-in Screen */
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.welcome-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.welcome-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.signin-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #999;
+  font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+/* Sign-in Container */
+.signin-container {
+  padding: 0;
+  min-height: 450px;
+}
+
+.signin-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #666;
+}
+
+.back-btn:hover {
+  background: #e0e0e0;
+}
+
+.signin-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Hide Clerk dev mode elements */
+.clerk-hidden {
+  display: none !important;
+}
+
+/* Custom Clerk styling */
+.clerk-root {
+  width: 100% !important;
+}
+
+.clerk-card {
+  box-shadow: none !important;
+  border: none !important;
+  padding: 16px !important;
+}
+
+.clerk-social-btn {
+  border-radius: 6px !important;
+}
+
+.clerk-primary-btn {
+  background: #3b82f6 !important;
+  border-radius: 6px !important;
+}
+
+.clerk-primary-btn:hover {
+  background: #2563eb !important;
+}
+
+/* Hide Clerk's development mode banner and badges */
+[data-localization-key="badge__requiresUpgrade"],
+[data-localization-key="badge__developerMode"],
+.cl-internal-b3fm6y,
+.cl-badge {
+  display: none !important;
 }
 
 /* Scrollbar */

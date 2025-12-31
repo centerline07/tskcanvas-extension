@@ -20,11 +20,15 @@ const EXCLUDED_URL_PREFIXES = [
 ]
 
 /**
- * Get all tabs from the current browser window
- * Filters out internal browser pages
+ * Get tabs from browser windows
+ * @param currentWindowOnly - If true, only get tabs from current window. Otherwise get from all windows.
+ * Filters out internal browser pages and non-normal windows (popups, devtools, etc.)
  */
-export async function getAllTabs(): Promise<Tab[]> {
-  const tabs = await chrome.tabs.query({ currentWindow: true })
+export async function getAllTabs(currentWindowOnly = false): Promise<Tab[]> {
+  const query = currentWindowOnly 
+    ? { currentWindow: true } 
+    : { windowType: "normal" as const }
+  const tabs = await chrome.tabs.query(query)
 
   return tabs
     .filter((tab) => {

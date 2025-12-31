@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tskcanvas Screenshot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 1280px;
+      height: 800px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .text-content {
+      color: white;
+      max-width: 400px;
+    }
+    .text-content h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .text-content p {
+      font-size: 20px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+    .popup-frame {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+      overflow: hidden;
+      width: 360px;
+    }
+    .browser-bar {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #28c940; }
+    .popup-content {
+      padding: 16px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .email {
+      font-size: 11px;
+      color: #666;
+    }
+    .input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #666;
+    }
+    .tabs-list {
+      border: 1px solid #f0f0f0;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      max-height: 180px;
+      overflow: hidden;
+    }
+    .tab-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+    .tab-item:last-child {
+      border-bottom: none;
+    }
+    .tab-icon {
+      width: 16px;
+      height: 16px;
+      background: #ddd;
+      border-radius: 2px;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 10px 16px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="text-content">
+      <h1>Save all your tabs in one click</h1>
+      <p>Turn 118 browser tabs into an organized task tree on tskcanvas</p>
+    </div>
+    
+    <div class="popup-frame">
+      <div class="browser-bar">
+        <div class="browser-dot dot-red"></div>
+        <div class="browser-dot dot-yellow"></div>
+        <div class="browser-dot dot-green"></div>
+      </div>
+      <div class="popup-content">
+        <div class="header">
+          <span class="title">Save 118 tabs</span>
+          <span class="email">you@email.com</span>
+        </div>
+        <div class="input">Saved Tabs - 12/19/2025</div>
+        <div class="checkbox-row">
+          <input type="checkbox" />
+          <span>Include tabs from this window only</span>
+        </div>
+        <div class="tabs-list">
+          <div class="tab-item"><div class="tab-icon"></div> Notion</div>
+          <div class="tab-item"><div class="tab-icon"></div> Productboard – Welcome</div>
+          <div class="tab-item"><div class="tab-icon"></div> Flowise - Build AI Agents</div>
+          <div class="tab-item"><div class="tab-icon"></div> GitHub - Dashboard</div>
+          <div class="tab-item"><div class="tab-icon"></div> Google Docs</div>
+        </div>
+        <button class="save-btn">Save to tskcanvas</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+

@@ -7,7 +7,7 @@ import {
   ClerkProvider,
   SignedIn,
   SignedOut,
-  useClerk,
+  SignIn,
   useAuth,
   useUser
 } from "@clerk/chrome-extension"
@@ -18,8 +18,30 @@ import { getAllTabs, type Tab } from "~lib/tabs"
 
 import "./popup.css"
 
-// Hardcoded Clerk key (env var has issues with Plasmo bundling)
+// Clerk publishable key
 const CLERK_PUBLISHABLE_KEY = "pk_test_dmFzdC1lc2NhcmdvdC02NS5jbGVyay5hY2NvdW50cy5kZXYk"
+
+// Custom Clerk appearance to remove dev branding
+const clerkAppearance = {
+  layout: {
+    socialButtonsPlacement: "bottom" as const,
+    showOptionalFields: false,
+    logoPlacement: "none" as const
+  },
+  elements: {
+    rootBox: "clerk-root",
+    card: "clerk-card",
+    headerTitle: "clerk-header-title",
+    headerSubtitle: "clerk-header-subtitle",
+    socialButtonsBlockButton: "clerk-social-btn",
+    formButtonPrimary: "clerk-primary-btn",
+    footerAction: "clerk-footer",
+    // Hide dev mode banner
+    badge: "clerk-hidden",
+    alertText: "clerk-hidden",
+    identityPreviewEditButton: "clerk-hidden"
+  }
+}
 
 function SignedInContent() {
   const { user } = useUser()
@@ -27,6 +49,7 @@ function SignedInContent() {
   const [saving, setSaving] = useState(false)
   const [tabs, setTabs] = useState<Tab[]>([])
   const [treeName, setTreeName] = useState("")
+  const [currentWindowOnly, setCurrentWindowOnly] = useState(false)
   const [result, setResult] = useState<{
     success: boolean
     url?: string
@@ -35,28 +58,22 @@ function SignedInContent() {
 
   useEffect(() => {
     async function loadTabs() {
-      const currentTabs = await getAllTabs()
+      const currentTabs = await getAllTabs(currentWindowOnly)
       setTabs(currentTabs)
       setTreeName(`Saved Tabs - ${new Date().toLocaleDateString()}`)
     }
     loadTabs()
-  }, [])
+  }, [currentWindowOnly])
 
   const handleSave = async () => {
-    console.log("[tskcanvas] handleSave called")
     setSaving(true)
     try {
-      console.log("[tskcanvas] Getting token...")
       const token = await getToken({ template: "convex" })
-      console.log("[tskcanvas] Token result:", token ? "got token" : "NO TOKEN")
       if (!token) throw new Error("Not authenticated")
 
-      console.log("[tskcanvas] Calling saveTabsToTree...")
       const response = await saveTabsToTree(token, treeName, tabs)
-      console.log("[tskcanvas] saveTabsToTree response:", response)
       setResult({ success: true, url: response.url })
     } catch (error) {
-      console.error("[tskcanvas] handleSave error:", error)
       setResult({ success: false, error: (error as Error).message })
     }
     setSaving(false)
@@ -107,6 +124,15 @@ function SignedInContent() {
         className="tree-name-input"
       />
 
+      <label className="checkbox-label">
+        <input
+          type="checkbox"
+          checked={currentWindowOnly}
+          onChange={(e) => setCurrentWindowOnly(e.target.checked)}
+        />
+        <span>Include tabs from this window only</span>
+      </label>
+
       <div className="tabs-list">
         {tabs.map((tab, i) => (
           <div key={i} className="tab-item">
@@ -129,16 +155,60 @@ function SignedInContent() {
 }
 
 function SignedOutContent() {
-  const { openSignIn } = useClerk()
+  const [showSignIn, setShowSignIn] = useState(false)
+
+  if (showSignIn) {
+    return (
+      <div className="popup-container signin-container">
+        <div className="signin-header">
+          <button 
+            onClick={() => setShowSignIn(false)} 
+            className="back-btn"
+            aria-label="Go back"
+          >
+            ←
+          </button>
+          <span className="signin-title">Sign in</span>
+        </div>
+        <SignIn 
+          appearance={clerkAppearance}
+          routing="hash"
+        />
+      </div>
+    )
+  }
 
   return (
-    <div className="popup-container">
-      <h2 className="title">Sign in to tskcanvas</h2>
-      <p className="description">Connect your account to save tabs.</p>
-      <button onClick={() => openSignIn()} className="btn btn-primary">
-        Sign in
-      </button>
-      <p className="tip">Tip: Sign in at tskcanvas.com for automatic sync</p>
+    <div className="popup-container welcome-container">
+      <div className="welcome-icon">🌳</div>
+      <h2 className="welcome-title">tskcanvas</h2>
+      <p className="welcome-subtitle">Save all your tabs as a task tree</p>
+      
+      <div className="signin-options">
+        <button 
+          onClick={() => setShowSignIn(true)} 
+          className="btn btn-primary"
+        >
+          Sign in with Email
+        </button>
+        
+        <div className="divider">
+          <span>or</span>
+        </div>
+        
+        <a 
+          href="https://tskcanvas.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="btn btn-secondary"
+        >
+          Sign in at tskcanvas.com
+        </a>
+      </div>
+      
+      <p className="tip">
+        Already signed in at tskcanvas.com? Just refresh this popup!
+      </p>
     </div>
   )
 }
