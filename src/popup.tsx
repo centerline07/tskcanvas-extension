@@ -21,6 +21,26 @@ import "./popup.css"
 // Clerk publishable key
 const CLERK_PUBLISHABLE_KEY = "pk_test_dmFzdC1lc2NhcmdvdC02NS5jbGVyay5hY2NvdW50cy5kZXYk"
 
+// ScrollText icon from Lucide (inline SVG) - thinner strokes for better readability
+const ScrollTextIcon = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="38" 
+    height="38" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="1.5" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M15 12h-5"/>
+    <path d="M15 8h-5"/>
+    <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
+    <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>
+  </svg>
+)
+
 // Custom Clerk appearance to remove dev branding
 const clerkAppearance = {
   layout: {
@@ -48,8 +68,9 @@ function SignedInContent() {
   const { getToken } = useAuth()
   const [saving, setSaving] = useState(false)
   const [tabs, setTabs] = useState<Tab[]>([])
+  const [selectedTabs, setSelectedTabs] = useState<Set<number>>(new Set())
   const [treeName, setTreeName] = useState("")
-  const [currentWindowOnly, setCurrentWindowOnly] = useState(false)
+  const [allWindows, setAllWindows] = useState(false)
   const [result, setResult] = useState<{
     success: boolean
     url?: string
@@ -58,12 +79,37 @@ function SignedInContent() {
 
   useEffect(() => {
     async function loadTabs() {
-      const currentTabs = await getAllTabs(currentWindowOnly)
+      // When allWindows is false, we want currentWindowOnly = true
+      const currentTabs = await getAllTabs(!allWindows)
       setTabs(currentTabs)
+      // Select all tabs by default
+      setSelectedTabs(new Set(currentTabs.map((_, i) => i)))
       setTreeName(`Saved Tabs - ${new Date().toLocaleDateString()}`)
     }
     loadTabs()
-  }, [currentWindowOnly])
+  }, [allWindows])
+
+  const toggleTab = (index: number) => {
+    setSelectedTabs(prev => {
+      const next = new Set(prev)
+      if (next.has(index)) {
+        next.delete(index)
+      } else {
+        next.add(index)
+      }
+      return next
+    })
+  }
+
+  const toggleAll = () => {
+    if (selectedTabs.size === tabs.length) {
+      setSelectedTabs(new Set())
+    } else {
+      setSelectedTabs(new Set(tabs.map((_, i) => i)))
+    }
+  }
+
+  const selectedCount = selectedTabs.size
 
   const handleSave = async () => {
     setSaving(true)
@@ -71,7 +117,9 @@ function SignedInContent() {
       const token = await getToken({ template: "convex" })
       if (!token) throw new Error("Not authenticated")
 
-      const response = await saveTabsToTree(token, treeName, tabs)
+      // Only save selected tabs
+      const tabsToSave = tabs.filter((_, i) => selectedTabs.has(i))
+      const response = await saveTabsToTree(token, treeName, tabsToSave)
       setResult({ success: true, url: response.url })
     } catch (error) {
       setResult({ success: false, error: (error as Error).message })
@@ -83,17 +131,23 @@ function SignedInContent() {
     return (
       <div className="popup-container">
         {result.success ? (
-          <>
-            <h2 className="success-title">✓ Saved!</h2>
-            <p className="success-text">{tabs.length} tabs saved to tree.</p>
+          <div className="success-container">
+            <div className="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2 className="success-title">Saved!</h2>
+            <p className="success-text">{selectedCount} tabs saved to your canvas</p>
             <a
               href={result.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary">
-              View Tree
+              className="btn btn-primary"
+              style={{ animation: 'fadeInUp 0.4s ease-out 0.3s both' }}>
+              View Canvas →
             </a>
-          </>
+          </div>
         ) : (
           <>
             <h2 className="error-title">Error</h2>
@@ -110,7 +164,7 @@ function SignedInContent() {
   return (
     <div className="popup-container">
       <div className="header">
-        <h2 className="title">Save {tabs.length} tabs</h2>
+        <h2 className="title">Save {selectedCount} of {tabs.length} tabs</h2>
         <span className="user-email">
           {user?.primaryEmailAddress?.emailAddress}
         </span>
@@ -120,22 +174,42 @@ function SignedInContent() {
         type="text"
         value={treeName}
         onChange={(e) => setTreeName(e.target.value)}
-        placeholder="Tree name"
+        placeholder="Canvas name"
         className="tree-name-input"
       />
 
-      <label className="checkbox-label">
+      <label className="checkbox-inline">
         <input
           type="checkbox"
-          checked={currentWindowOnly}
-          onChange={(e) => setCurrentWindowOnly(e.target.checked)}
+          checked={allWindows}
+          onChange={(e) => setAllWindows(e.target.checked)}
         />
-        <span>Include tabs from this window only</span>
+        <span>Include all browser windows</span>
       </label>
+
+      <div className="tabs-header">
+        <button 
+          className="toggle-all-btn"
+          onClick={toggleAll}
+        >
+          {selectedTabs.size === tabs.length ? "Deselect all" : "Select all"}
+        </button>
+      </div>
 
       <div className="tabs-list">
         {tabs.map((tab, i) => (
-          <div key={i} className="tab-item">
+          <div 
+            key={i} 
+            className={`tab-item ${selectedTabs.has(i) ? 'selected' : 'deselected'}`}
+            onClick={() => toggleTab(i)}
+          >
+            <input
+              type="checkbox"
+              checked={selectedTabs.has(i)}
+              onChange={() => toggleTab(i)}
+              className="tab-checkbox"
+              onClick={(e) => e.stopPropagation()}
+            />
             {tab.favIconUrl && (
               <img src={tab.favIconUrl} className="tab-favicon" alt="" />
             )}
@@ -146,9 +220,9 @@ function SignedInContent() {
 
       <button
         onClick={handleSave}
-        disabled={saving || tabs.length === 0}
+        disabled={saving || selectedCount === 0}
         className="btn btn-primary">
-        {saving ? "Saving..." : "Save to tskcanvas"}
+        {saving ? "Saving..." : "Save to MasterCanvas"}
       </button>
     </div>
   )
@@ -180,9 +254,11 @@ function SignedOutContent() {
 
   return (
     <div className="popup-container welcome-container">
-      <div className="welcome-icon">🌳</div>
-      <h2 className="welcome-title">tskcanvas</h2>
-      <p className="welcome-subtitle">Save all your tabs as a task tree</p>
+      <div className="welcome-icon">
+        <ScrollTextIcon />
+      </div>
+      <h2 className="welcome-title">MasterCanvas</h2>
+      <p className="welcome-subtitle">Save all your tabs to your canvas</p>
       
       <div className="signin-options">
         <button 
@@ -202,12 +278,12 @@ function SignedOutContent() {
           rel="noopener noreferrer"
           className="btn btn-secondary"
         >
-          Sign in at tskcanvas.com
+          Sign in at MasterCanvas
         </a>
       </div>
       
       <p className="tip">
-        Already signed in at tskcanvas.com? Just refresh this popup!
+        Already signed in? Just refresh this popup!
       </p>
     </div>
   )

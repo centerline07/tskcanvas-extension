@@ -1,8 +1,8 @@
 {
-  "name": "tskcanvas-extension",
-  "displayName": "tskcanvas Tab Saver",
+  "name": "mastercanvas-extension",
+  "displayName": "MasterCanvas Tab Saver",
   "version": "1.0.0",
-  "description": "Save all open browser tabs as a new tree in tskcanvas with one click",
+  "description": "Save all open browser tabs to your MasterCanvas with one click",
   "author": "centerline07",
   "homepage": "https://tskcanvas.com",
   "scripts": {
