@@ -1,0 +1,11 @@
+curl -X PATCH https://api.clerk.com/v1/instance \
+  -H "Authorization: Bearer sk_test_R5ltPcg0ebLp6rbIjd3EjF6MqKPIcswlVmE9M7dhjH" \
+  -H "Content-type: application/json" \
+  -d '{"allowed_origins": ["chrome-extension://hpmdpfgggeocbcogaljcbldmiojphhjh"]}'
+
+
+  curl https://api.clerk.com/v1/instance \
+  -H "Authorization: Bearer sk_test_R5ltPcg0ebLp6rbIjd3EjF6MqKPIcswlVmE9M7dhjH" \
+  -H "Content-type: application/json"
+
+
