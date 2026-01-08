@@ -1,6 +1,6 @@
-# tskcanvas Extension - Backend Integration Guide
+# mastercanvas Extension - Backend Integration Guide
 
-> **For the tskcanvas dev team**: This document covers what you need to implement in the main tskcanvas Convex backend to support the browser extension.
+> **For the mastercanvas dev team**: This document covers what you need to implement in the main mastercanvas Convex backend to support the browser extension.
 
 **Last Updated**: 2024-12-12
 
@@ -9,7 +9,7 @@
 ## Overview
 
 The browser extension is complete and tested. It:
-- ✅ Authenticates via Clerk (shares session with tskcanvas web app)
+- ✅ Authenticates via Clerk (shares session with mastercanvas web app)
 - ✅ Captures all open browser tabs
 - ✅ Displays a UI for naming and saving tabs
 - ❌ **Needs a backend endpoint** to actually save the tabs
@@ -45,7 +45,7 @@ Content-Type: application/json
 {
   success: true;
   treeId: string;             // Convex document ID of created tree
-  url: string;                // Direct link to view tree (e.g., "https://tskcanvas.com/tree/abc123")
+  url: string;                // Direct link to view tree (e.g., "https://mastercanvas.app/tree/abc123")
 }
 ```
 
@@ -119,7 +119,7 @@ http.route({
     return new Response(JSON.stringify({
       success: true,
       treeId: result.treeId,
-      url: `https://tskcanvas.com/tree/${result.treeId}`  // Adjust URL format as needed
+      url: `https://mastercanvas.app/tree/${result.treeId}`  // Adjust URL format as needed
     }), {
       status: 200,
       headers: { 
@@ -216,7 +216,7 @@ When deploying to production, configure Clerk:
 
 ### 1. Add Sync Host
 - **Location**: Clerk Dashboard → Configure → Settings → Paths
-- **Value**: `tskcanvas.com`
+- **Value**: `mastercanvas.app`
 
 ### 2. Add Extension Origin
 - **Location**: Clerk Dashboard → Configure → Settings → Allowed Origins
@@ -235,14 +235,14 @@ In the extension code (`src/popup.tsx`), update:
 
 ```typescript
 // Change from localhost to production
-syncHost="https://tskcanvas.com"
+syncHost="https://mastercanvas.app"
 ```
 
 In `package.json`, update host_permissions:
 
 ```json
 "host_permissions": [
-  "https://tskcanvas.com/*",           // Remove localhost
+  "https://mastercanvas.app/*",           // Remove localhost
   "https://*.convex.cloud/*",
   "https://*.clerk.accounts.dev/*"
 ]
@@ -261,10 +261,10 @@ In `package.json`, update host_permissions:
 - [ ] CORS headers configured
 
 ### Full Integration Test
-- [ ] Sign in to tskcanvas web app
+- [ ] Sign in to mastercanvas web app
 - [ ] Open extension popup
 - [ ] Verify user is auto-signed in (via Sync Host)
-- [ ] Click "Save to tskcanvas"
+- [ ] Click "Save to mastercanvas"
 - [ ] Verify tree created with correct name
 - [ ] Verify tasks created for each tab
 - [ ] Verify "View Tree" link works
@@ -299,6 +299,6 @@ In `package.json`, update host_permissions:
 ## Questions?
 
 Contact the extension developer or refer to:
-- Original spec: `tskcanvas-extension-docs.md`
+- Original spec: `mastercanvas-extension-docs.md`
 - Task tracking: `docs/tasks/current.md`
 - Architecture: `docs/arch-details.md`

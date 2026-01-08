@@ -7,12 +7,12 @@
 
 // Log extension installation
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("[tskcanvas] Extension installed")
+  console.log("[mastercanvas] Extension installed")
 })
 
 // Handle any background messages if needed in the future
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("[tskcanvas] Message received:", request.type)
+  console.log("[mastercanvas] Message received:", request.type)
 
   // Placeholder for future background tasks
   if (request.type === "ping") {

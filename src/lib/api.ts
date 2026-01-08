@@ -1,5 +1,5 @@
 /**
- * API functions for communicating with tskcanvas Convex backend
+ * API functions for communicating with mastercanvas Convex backend
  */
 
 // Convex HTTP routes URL (note: .convex.site for HTTP, not .convex.cloud)
@@ -18,7 +18,7 @@ export interface SaveTabsError {
 }
 
 /**
- * Save tabs to tskcanvas as a new tree
+ * Save tabs to mastercanvas as a new tree
  */
 export async function saveTabsToTree(
   token: string,

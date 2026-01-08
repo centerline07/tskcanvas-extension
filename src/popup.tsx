@@ -8,8 +8,10 @@ import {
   SignedIn,
   SignedOut,
   SignIn,
+  SignUp,
   useAuth,
-  useUser
+  useUser,
+  useClerk
 } from "@clerk/chrome-extension"
 import { useEffect, useState } from "react"
 
@@ -66,11 +68,13 @@ const clerkAppearance = {
 function SignedInContent() {
   const { user } = useUser()
   const { getToken } = useAuth()
+  const { signOut } = useClerk()
   const [saving, setSaving] = useState(false)
   const [tabs, setTabs] = useState<Tab[]>([])
   const [selectedTabs, setSelectedTabs] = useState<Set<number>>(new Set())
   const [treeName, setTreeName] = useState("")
   const [allWindows, setAllWindows] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const [result, setResult] = useState<{
     success: boolean
     url?: string
@@ -161,13 +165,37 @@ function SignedInContent() {
     )
   }
 
+  const handleLogout = async () => {
+    await signOut()
+    setShowUserMenu(false)
+  }
+
   return (
     <div className="popup-container">
       <div className="header">
         <h2 className="title">Save {selectedCount} of {tabs.length} tabs</h2>
-        <span className="user-email">
-          {user?.primaryEmailAddress?.emailAddress}
-        </span>
+        <div className="user-menu-container">
+          <button 
+            className="user-email-btn"
+            onClick={() => setShowUserMenu(!showUserMenu)}
+            onBlur={() => setTimeout(() => setShowUserMenu(false), 200)}
+          >
+            {user?.primaryEmailAddress?.emailAddress}
+            <span className="dropdown-arrow">▾</span>
+          </button>
+          {showUserMenu && (
+            <div className="user-menu-dropdown">
+              <div className="user-menu-item user-info">
+                <div className="user-info-email">{user?.primaryEmailAddress?.emailAddress}</div>
+                <div className="user-info-name">{user?.fullName || 'User'}</div>
+              </div>
+              <div className="user-menu-divider"></div>
+              <button className="user-menu-item user-menu-action" onClick={handleLogout}>
+                <span>Sign out</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <input
@@ -229,14 +257,14 @@ function SignedInContent() {
 }
 
 function SignedOutContent() {
-  const [showSignIn, setShowSignIn] = useState(false)
+  const [authMode, setAuthMode] = useState<'welcome' | 'signin' | 'signup'>('welcome')
 
-  if (showSignIn) {
+  if (authMode === 'signin') {
     return (
       <div className="popup-container signin-container">
         <div className="signin-header">
           <button 
-            onClick={() => setShowSignIn(false)} 
+            onClick={() => setAuthMode('welcome')} 
             className="back-btn"
             aria-label="Go back"
           >
@@ -247,6 +275,29 @@ function SignedOutContent() {
         <SignIn 
           appearance={clerkAppearance}
           routing="hash"
+          signUpUrl="#/sign-up"
+        />
+      </div>
+    )
+  }
+
+  if (authMode === 'signup') {
+    return (
+      <div className="popup-container signin-container">
+        <div className="signin-header">
+          <button 
+            onClick={() => setAuthMode('welcome')} 
+            className="back-btn"
+            aria-label="Go back"
+          >
+            ←
+          </button>
+          <span className="signin-title">Sign up</span>
+        </div>
+        <SignUp 
+          appearance={clerkAppearance}
+          routing="hash"
+          signInUrl="#/sign-in"
         />
       </div>
     )
@@ -262,10 +313,17 @@ function SignedOutContent() {
       
       <div className="signin-options">
         <button 
-          onClick={() => setShowSignIn(true)} 
+          onClick={() => setAuthMode('signin')} 
           className="btn btn-primary"
         >
-          Sign in with Email
+          Sign in
+        </button>
+        
+        <button 
+          onClick={() => setAuthMode('signup')} 
+          className="btn btn-secondary"
+        >
+          Sign up
         </button>
         
         <div className="divider">
@@ -273,7 +331,7 @@ function SignedOutContent() {
         </div>
         
         <a 
-          href="https://tskcanvas.com" 
+          href="https://mastercanvas.app" 
           target="_blank" 
           rel="noopener noreferrer"
           className="btn btn-secondary"
@@ -283,7 +341,7 @@ function SignedOutContent() {
       </div>
       
       <p className="tip">
-        Already signed in? Just refresh this popup!
+        Already signed in at mastercanvas.app? Just refresh this popup!
       </p>
     </div>
   )
@@ -293,9 +351,12 @@ export default function Popup() {
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
-      afterSignOutUrl="/"
-      // Sync auth with tskcanvas.com
-      syncHost="https://tskcanvas.com"
+      afterSignOutUrl="#/"
+      // Sync auth with mastercanvas.app
+      syncHost="https://mastercanvas.app"
+      // Enable OAuth popup mode for extensions
+      signInUrl="#/sign-in"
+      signUpUrl="#/sign-up"
     >
       <SignedIn>
         <SignedInContent />

@@ -1,4 +1,4 @@
-# tskcanvas Browser Extension - Architecture Details
+# mastercanvas Browser Extension - Architecture Details
 
 > **Master Document**: Comprehensive view of the browser extension architecture
 > **Last Updated**: 2024-12-12
@@ -8,12 +8,12 @@
 ## 1. Overview
 
 ### Purpose
-A lightweight browser extension that saves all open browser tabs as a new tree in tskcanvas with one click.
+A lightweight browser extension that saves all open browser tabs as a new tree in mastercanvas with one click.
 
 ### Core Functionality
 1. Captures all open tabs in the current browser window
-2. Authenticates with Clerk (same auth as tskcanvas.com via Sync Host)
-3. Sends tabs to the tskcanvas Convex backend
+2. Authenticates with Clerk (same auth as mastercanvas.app via Sync Host)
+3. Sends tabs to the mastercanvas Convex backend
 4. Creates a hierarchical tree with each tab as a task
 
 ### User Flow
@@ -29,7 +29,7 @@ Extension captures all open tabs
         ↓
 User sees tab preview + tree name input
         ↓
-User clicks "Save to tskcanvas"
+User clicks "Save to mastercanvas"
         ↓
 Extension sends data to Convex API
         ↓
@@ -46,7 +46,7 @@ Success notification with link to view tree
 | **Build Tool** | Plasmo | Better DX, auto-generates manifest |
 | **Auth** | `@clerk/chrome-extension` v2+ | Sync Host for seamless auth |
 | **UI** | React + Clerk hooks | ClerkProvider, useClerk, useUser |
-| **Backend** | Convex | Existing tskcanvas backend |
+| **Backend** | Convex | Existing mastercanvas backend |
 | **Cross-browser** | WebExtension Polyfill | Firefox/Edge support (optional) |
 
 ---
@@ -54,7 +54,7 @@ Success notification with link to view tree
 ## 3. Project Structure
 
 ```
-tskcanvas-extension/
+mastercanvas-extension/
 ├── package.json              # Dependencies + manifest config
 ├── .env                      # Environment variables (not committed)
 ├── .env.example              # Template for .env
@@ -90,11 +90,11 @@ tskcanvas-extension/
 ## 4. Authentication Architecture
 
 ### Sync Host Pattern
-The extension uses Clerk's **Sync Host** feature to share authentication state with tskcanvas.com:
+The extension uses Clerk's **Sync Host** feature to share authentication state with mastercanvas.app:
 
 ```
 ┌─────────────────────┐     ┌──────────────────────┐
-│   tskcanvas.com     │     │  Browser Extension   │
+│   mastercanvas.app     │     │  Browser Extension   │
 │   (Web App)         │     │  (Chrome)            │
 ├─────────────────────┤     ├──────────────────────┤
 │ User signs in       │────▶│ Session synced       │
@@ -124,9 +124,16 @@ The extension uses Clerk's **Sync Host** feature to share authentication state w
 |--------|-----------|-------|
 | Email + Password | ✅ Yes | Works in popup |
 | Email codes (OTP) | ✅ Yes | Works in popup |
-| OAuth (Google) | ❌ No | Popup closes during redirect |
+| OAuth (Google) | 🟡 Yes (Testing) | Configured with hash-based routing (2026-01-04) |
 | Magic links | ❌ No | Popup must stay open |
 | **Sync Host** | ✅ Yes | **Recommended** |
+
+### Recent OAuth Improvements (2026-01-04)
+- Added `SignUp` component alongside `SignIn` for better user flow
+- Configured hash-based routing (`routing="hash"`) for OAuth redirects
+- Added `signInUrl` and `signUpUrl` to ClerkProvider for proper navigation
+- Implemented user menu dropdown with logout functionality
+- Status: Code complete, requires user testing
 
 ---
 
@@ -159,7 +166,7 @@ Authorization: Bearer <jwt-token>
 {
   success: true;
   treeId: string;             // Convex document ID
-  url: string;                // Direct link to tree on tskcanvas.com
+  url: string;                // Direct link to tree on mastercanvas.app
 }
 ```
 
@@ -187,7 +194,7 @@ Authorization: Bearer <jwt-token>
 
 | Host | Purpose |
 |------|---------|
-| `https://tskcanvas.com/*` | Sync Host for auth |
+| `https://mastercanvas.app/*` | Sync Host for auth |
 | `https://*.convex.cloud/*` | Backend API calls |
 | `https://*.clerk.accounts.dev/*` | Clerk authentication |
 
@@ -202,7 +209,7 @@ Authorization: Bearer <jwt-token>
 │ STATE: SIGNED OUT                           │
 ├─────────────────────────────────────────────┤
 │                                             │
-│   Sign in to tskcanvas                      │
+│   Sign in to mastercanvas                      │
 │                                             │
 │   Connect your account to save tabs.        │
 │                                             │
@@ -210,7 +217,7 @@ Authorization: Bearer <jwt-token>
 │   │          Sign in                    │   │
 │   └─────────────────────────────────────┘   │
 │                                             │
-│   Tip: Sign in at tskcanvas.com for         │
+│   Tip: Sign in at mastercanvas.app for         │
 │        automatic sync                       │
 │                                             │
 └─────────────────────────────────────────────┘
@@ -233,7 +240,7 @@ Authorization: Bearer <jwt-token>
 │   └─────────────────────────────────────┘   │
 │                                             │
 │   ┌─────────────────────────────────────┐   │
-│   │       Save to tskcanvas             │   │
+│   │       Save to mastercanvas             │   │
 │   └─────────────────────────────────────┘   │
 │                                             │
 └─────────────────────────────────────────────┘
@@ -344,6 +351,6 @@ Right-click extension icon → "Inspect popup"
 
 | Document | Purpose |
 |----------|---------|
-| `tskcanvas-extension-docs.md` | Original spec + code samples |
+| `mastercanvas-extension-docs.md` | Original spec + code samples |
 | `docs/tasks/current.md` | Active task tracking |
 | `docs/tasks/completed/*.md` | Completed task archives |

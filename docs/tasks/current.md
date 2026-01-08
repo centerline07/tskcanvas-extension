@@ -1,6 +1,6 @@
-# tskcanvas Browser Extension - Master Task List
+# mastercanvas Browser Extension - Master Task List
 
-> **Project Goal**: Save all open browser tabs as a new tree in tskcanvas with one click
+> **Project Goal**: Save all open browser tabs as a new tree in mastercanvas with one click
 > **Estimated Total Hours**: 10-15 hours
 > **Last Updated**: 2024-12-12
 
@@ -10,7 +10,7 @@
 **Status**: 🟢 Complete (Code) / 🟡 Pending (Dashboard Config)
 
 ### 1.1 Initialize Plasmo Project ✅
-- [x] ~~Run `npm create plasmo@latest tskcanvas-extension -- --with-clerk`~~ (Manual setup - template deprecated)
+- [x] ~~Run `npm create plasmo@latest mastercanvas-extension -- --with-clerk`~~ (Manual setup - template deprecated)
 - [x] Verify project structure matches expected layout
 - [x] Install dependencies: `plasmo`, `@clerk/chrome-extension`, `react`, `react-dom`
 - [x] Create `.env` file with placeholders
@@ -22,20 +22,20 @@
 - [x] Add `.env` to `.gitignore`
 
 ### 1.3 Clerk Dashboard Setup ⏳ (USER ACTION REQUIRED)
-- [ ] Add Sync Host: `tskcanvas.com` (Settings → Paths)
+- [ ] Add Sync Host: `mastercanvas.app` (Settings → Paths)
 - [ ] Add Extension Origin: `chrome-extension://<extension-id>` (Settings → Domains → Allowed Origins)
 - [ ] Verify JWT Template `convex` exists
 - [ ] Document extension ID retrieval process
 
 ### 1.4 Manifest Configuration ✅
 - [x] Configure permissions in `package.json`: `tabs`, `storage`
-- [x] Configure host_permissions: `tskcanvas.com/*`, `*.convex.cloud/*`, `*.clerk.accounts.dev/*`
+- [x] Configure host_permissions: `mastercanvas.app/*`, `*.convex.cloud/*`, `*.clerk.accounts.dev/*`
 - [x] Verify Plasmo generates correct `manifest.json`
 
 ---
 
 ## Phase 2: Authentication Implementation (2-3 hrs)
-**Status**: 🟢 Complete
+**Status**: 🟢 Complete (Code) / ⏳ Testing Required
 
 ### 2.1 Background Service Worker (`src/background.ts`) ✅
 - [x] ~~Import and configure `createClerkClient`~~ (API changed - using ClerkProvider in popup)
@@ -47,12 +47,27 @@
 - [x] Use `useAuth` hook for `getToken({ template: "convex" })`
 - [x] Use `useUser` hook for user info
 - [x] Use `useClerk` hook for sign-in/out
+- [x] Configure OAuth routing with hash-based navigation
+- [x] Add `SignUp` component with proper routing
 
-### 2.3 Test Authentication Flow ⏳
+### 2.3 Google OAuth & Logout Improvements (2026-01-04) ✅
+- [x] Add proper `SignIn` and `SignUp` components with routing
+- [x] Configure hash-based routing for OAuth redirects (`signInUrl`, `signUpUrl`)
+- [x] Add user menu dropdown component
+- [x] Implement logout functionality with `useClerk().signOut()`
+- [x] Add user info display (email + name) in dropdown
+- [x] Style dropdown with animations and hover states
+- [x] Add authentication mode switcher (welcome/signin/signup)
+- [x] Update welcome screen with Sign In / Sign Up options
+
+### 2.4 Test Authentication Flow ⏳ (USER ACTION REQUIRED)
 - [ ] Load unpacked extension in Chrome
 - [ ] Get extension ID from `chrome://extensions`
-- [ ] Add extension ID to Clerk allowed origins
-- [ ] Test sign-in via tskcanvas.com (Sync Host)
+- [ ] Add extension ID to Clerk allowed origins in dashboard
+- [ ] **Test Google OAuth sign-in** (new - should work with proper routing)
+- [ ] **Test Google OAuth sign-up** (new - should work with proper routing)
+- [ ] Test sign-in via mastercanvas.app (Sync Host)
+- [ ] **Test logout dropdown functionality** (new)
 - [ ] Verify token retrieval works
 - [ ] Test sign-out functionality
 
@@ -85,7 +100,7 @@
 - [x] Configure proper headers: `Content-Type`, `Authorization` (Bearer token)
 - [x] Handle error responses with meaningful messages
 
-### 4.2 Convex Backend Endpoint (tskcanvas main repo) ⏳
+### 4.2 Convex Backend Endpoint (mastercanvas main repo) ⏳
 - [ ] Create `api/extension/save-tabs` HTTP endpoint
 - [ ] Validate JWT token from extension
 - [ ] Parse incoming tabs array
@@ -96,7 +111,7 @@
 ### 4.3 Test API Integration ⏳
 - [ ] Test endpoint with valid token
 - [ ] Test endpoint with invalid/expired token
-- [ ] Verify tree creation in tskcanvas
+- [ ] Verify tree creation in mastercanvas
 - [ ] Verify tasks are created with correct data
 
 ---
@@ -113,16 +128,16 @@
 - [x] Show tab count
 - [x] Tree name input (default: "Saved Tabs - [Date]")
 - [x] Scrollable tab preview list with favicons
-- [x] "Save to tskcanvas" button
+- [x] "Save to mastercanvas" button
 - [x] Loading state during save
 - [x] Success view with "View Tree" link
 - [x] Error view with "Try again" button
 
 ### 5.3 SignedOut Content ✅
-- [x] "Sign in to tskcanvas" header
+- [x] "Sign in to mastercanvas" header
 - [x] Explanation text
 - [x] Sign-in button (opens Clerk modal)
-- [x] Tip about tskcanvas.com sign-in for Sync Host
+- [x] Tip about mastercanvas.app sign-in for Sync Host
 
 ### 5.4 Styling (`src/popup.css`) ✅
 - [x] Set popup width to 320px
@@ -141,7 +156,7 @@
 - [x] Create placeholder icons (16/32/48/64/128px)
 - [x] Blue "T" logo using sharp
 - [x] Verify icons display correctly in build
-- [ ] Replace with final tskcanvas branded icons (optional)
+- [ ] Replace with final mastercanvas branded icons (optional)
 
 ### 6.2 UX Improvements ⏳
 - [ ] Add loading spinner during tab fetch
@@ -175,7 +190,7 @@
 - [ ] Create Chrome Web Store Developer account (if needed)
 - [ ] Pay $5 registration fee (if first time)
 - [ ] Prepare store listing:
-  - [ ] Extension name: "tskcanvas Tab Saver"
+  - [ ] Extension name: "mastercanvas Tab Saver"
   - [ ] Short description
   - [ ] Detailed description
   - [ ] Screenshots (at least 1)
@@ -195,7 +210,7 @@
 ## 🎯 Next Steps (Priority Order)
 
 1. **Clerk Dashboard Setup** - Configure Sync Host and extension origin
-2. **Convex Backend Endpoint** - Create `/api/extension/save-tabs` in main tskcanvas repo
+2. **Convex Backend Endpoint** - Create `/api/extension/save-tabs` in main mastercanvas repo
 3. **Test Extension** - Load unpacked and verify full flow
 4. **Polish** - Final icons, error handling, code cleanup
 5. **Publish** - Chrome Web Store submission
@@ -204,14 +219,21 @@
 
 ## Known Limitations & Notes
 
-### Sign-in Limitations (by design)
+### Sign-in Methods (Updated 2026-01-04)
 - ✅ Email + Password works
 - ✅ Email codes (OTP) works
-- ❌ OAuth (Google, GitHub) - popup closes during redirect
+- 🟡 OAuth (Google, GitHub) - **NEW: Configured with hash-based routing, requires testing**
 - ❌ Magic links - requires popup to stay open
 
+### OAuth Improvements (2026-01-04)
+- Added proper `SignIn` / `SignUp` components with routing configuration
+- Configured `signInUrl="#/sign-in"` and `signUpUrl="#/sign-up"` on ClerkProvider
+- Used hash-based routing (`routing="hash"`) to handle redirects in extension context
+- **Status**: Code complete, requires user testing to verify Google OAuth works
+
 ### Best Practice
-- Use **Sync Host** so users sign in once on tskcanvas.com and the extension automatically picks up their session
+- **Primary**: Use **Sync Host** so users sign in once on mastercanvas.app and the extension automatically picks up their session
+- **Alternative**: Use direct sign-in/sign-up in extension (now supports OAuth with routing)
 
 ### Debugging Tips
 - **Popup**: Right-click extension icon → "Inspect popup"

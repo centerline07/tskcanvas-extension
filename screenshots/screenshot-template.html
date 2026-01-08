@@ -70,19 +70,17 @@
       margin-bottom: 24px;
     }
     .logo-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      color: #8b5cf6;
+      filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
     }
     .logo-icon svg {
-      width: 26px;
-      height: 26px;
-      color: white;
+      width: 40px;
+      height: 40px;
     }
     .logo-text {
       font-size: 24px;
@@ -109,7 +107,9 @@
       border-radius: 16px;
       box-shadow: 0 25px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
       overflow: hidden;
-      width: 360px;
+      width: 380px;
+      display: flex;
+      flex-direction: column;
     }
     .browser-bar {
       background: #f8fafc;
@@ -129,6 +129,9 @@
     .dot-green { background: #28c940; }
     .popup-content {
       padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .header {
       display: flex;
@@ -190,6 +193,7 @@
       margin-bottom: 16px;
       background: #f8fafc;
       overflow: hidden;
+      max-height: 280px;
     }
     .tab-item {
       display: flex;
@@ -223,6 +227,7 @@
       font-size: 14px;
       font-weight: 600;
       box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+      margin-top: auto;
     }
   </style>
 </head>
@@ -257,7 +262,7 @@
       </div>
       <div class="popup-content">
         <div class="header">
-          <span class="title">Save 24 of 28 tabs</span>
+          <span class="title">Save 27 of 32 tabs</span>
           <span class="email">you@email.com</span>
         </div>
         <div class="input">Research Project - Q1</div>
@@ -274,6 +279,9 @@
           <div class="tab-item"><input type="checkbox" class="tab-checkbox" checked /><div class="tab-icon"></div> Figma – Design System</div>
           <div class="tab-item"><input type="checkbox" class="tab-checkbox" /><div class="tab-icon"></div> Google Docs – Notes</div>
           <div class="tab-item"><input type="checkbox" class="tab-checkbox" checked /><div class="tab-icon"></div> Linear – Sprint Board</div>
+          <div class="tab-item"><input type="checkbox" class="tab-checkbox" checked /><div class="tab-icon"></div> Stack Overflow – Questions</div>
+          <div class="tab-item"><input type="checkbox" class="tab-checkbox" checked /><div class="tab-icon"></div> MDN Web Docs – CSS Grid</div>
+          <div class="tab-item"><input type="checkbox" class="tab-checkbox" checked /><div class="tab-icon"></div> YouTube – Tutorial Video</div>
         </div>
         <button class="save-btn">Save to MasterCanvas</button>
       </div>

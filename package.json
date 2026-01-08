@@ -1,10 +1,10 @@
 {
   "name": "mastercanvas-extension",
   "displayName": "MasterCanvas Tab Saver",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Save all open browser tabs to your MasterCanvas with one click",
   "author": "centerline07",
-  "homepage": "https://tskcanvas.com",
+  "homepage": "https://mastercanvas.app",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
@@ -20,6 +20,7 @@
     "@types/chrome": "^0.0.287",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "puppeteer": "^24.34.0",
     "sharp": "^0.34.5",
     "typescript": "^5.7.2"
   },
@@ -30,10 +31,10 @@
       "cookies"
     ],
     "host_permissions": [
-      "https://tskcanvas.com/*",
+      "https://mastercanvas.app/*",
       "https://*.convex.site/*",
       "https://*.clerk.accounts.dev/*"
     ],
-    "homepage_url": "https://tskcanvas.com"
+    "homepage_url": "https://mastercanvas.app"
   }
 }

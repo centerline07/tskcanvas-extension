@@ -1232,11 +1232,11 @@ That's the story. That's the brand. That's the first 1,000 users.
 That's not a pitch. That's just true. And it'll resonate with a lot of people who feel the same way.
 Next Step
 You could literally post that story—with a screenshot of your own canvas—and see what happens.
-Where would you post first?I'm on board so what name seems the best I'm using tskcanvas.com right now3:34 PMtskcanvas.com is solid. Clean, descriptive, available.
+Where would you post first?I'm on board so what name seems the best I'm using mastercanvas.app right now3:34 PMmastercanvas.app is solid. Clean, descriptive, available.
 Quick Comparison
-NameProsConstskcanvasClear (task + canvas), short, available"tsk" is a bit abbreviatedtekkflowMemorable, flow is good"tekk" meaning unclear
+NameProsConsmastercanvasClear (task + canvas), short, available"tsk" is a bit abbreviatedtekkflowMemorable, flow is good"tekk" meaning unclear
 My Take
-tskcanvas wins because:
+mastercanvas wins because:
 
 You don't have to explain it—task + canvas
 Matches the UI language you want (canvas not tree)
@@ -1248,22 +1248,22 @@ You already have it
 The Name Test
 
 "What do you use for tasks?"
-"tskcanvas"
+"mastercanvas"
 "Oh, like a canvas for tasks?"
 "Yeah exactly"
 
 That's a one-sentence explanation. That's good.
-Ship with tskcanvas. You can always rebrand later if something better emerges—but you probably won't need to.
+Ship with mastercanvas. You can always rebrand later if something better emerges—but you probably won't need to.
 Are you ready to start telling people about it?but you would called pronounced "task canvas" right?3:35 PMYeah, "task canvas" when you say it out loud.
 The only slight friction is people might search "taskcanvas" or "task canvas" and not find you. But that's solvable:
 
 Own the SEO for "task canvas"
 Socials as @taskcanvas if available
-"tskcanvas (task canvas)" in your bio/descriptions until it's established
+"mastercanvas (task canvas)" in your bio/descriptions until it's established
 
 Or... is taskcanvas.com available?there is at least one other company using it with a similar map planning app but it doesn't look that good to me3:36 PMThat's annoying but not a dealbreaker.
 Options
-1. Keep tskcanvas
+1. Keep mastercanvas
 
 Different enough legally
 The abbreviated "tsk" is your thing
@@ -1280,7 +1280,7 @@ NameAvailable?FeelcanvastaskMaybeReversed, less naturalmycanvasProbably notGener
 Or leaning into the ADHD angle:
 NameFeelouthinkExternalize your thinkingbraincanvasYour brain, visualizedmindcanvasSimilardumpcanvasDump it all out (very ADHD)
 Honest Take
-tskcanvas is fine. The other company using "taskcanvas" with a mediocre product isn't going to stop you. If yours is better, you win.
+mastercanvas is fine. The other company using "taskcanvas" with a mediocre product isn't going to stop you. If yours is better, you win.
 What matters more—the perfect name, or shipping?maybe we could call them tsk's in the ui ?3:37 PMThat's clever. Owning the language.
 In the UI
 ┌─────────────────────────────────────────────────────────────┐
@@ -1298,7 +1298,7 @@ Why It Works
 
 Distinctive — Nobody else says "tsks"
 Phonetically same — Brain reads it as "tasks"
-Brandable — Reinforces tskcanvas
+Brandable — Reinforces mastercanvas
 Shorter in UI — 3 characters vs 5
 Personality — Feels opinionated, not generic
 
@@ -1340,9 +1340,9 @@ Which feels more like you?I like it but you usually saw tsk tsk tsk when someone
 "Tsk tsk tsk, you forgot again."
 That's... not the vibe you want.
 Back to Basics
-Just pronounce it "task canvas" and spell it tskcanvas. The abbreviation is just efficient, not a sound effect.
+Just pronounce it "task canvas" and spell it mastercanvas. The abbreviation is just efficient, not a sound effect.
 
-Logo: tskcanvas
+Logo: mastercanvas
 Say it: "task canvas"
 UI: "tsks" (still works, people read it as "tasks")
 
@@ -1364,9 +1364,9 @@ Canvas = the container
 "My canvases"
 "Q1 Planning canvas · 47 tsks"
 Clean. Consistent. Done.
-Or does something else feel better?ah, that could be canvas's fits the name! tskcanvas3:41 PMExactly. It was right there the whole time.
+Or does something else feel better?ah, that could be canvas's fits the name! mastercanvas3:41 PMExactly. It was right there the whole time.
 The Language
-tskcanvas
+mastercanvas
     └── Canvas = the container (tree/flow/project)
     └── Tsk = the item (task)
 
@@ -1386,7 +1386,7 @@ In the UI
 └─────────────────────────────────────────────────────────────┘
 The Brand
 
-Product: tskcanvas
+Product: mastercanvas
 Containers: canvases
 Items: tsks
 Pronounced: "task canvas"
@@ -1397,7 +1397,7 @@ Alternatives
 Instead of "My Canvases"FeelHomeSimple, neutralDashboardStandardOverviewClearMy StuffCasualWorkspaceProfessionalAllMinimal
 Or just don't label it—it's obvious from context:
 ┌─────────────────────────────────────────────────────────────┐
-│ tskcanvas                                    [+ New Canvas] │
+│ mastercanvas                                    [+ New Canvas] │
 ├─────────────────────────────────────────────────────────────┤
 │ 📋 Q1 Planning                    47 tsks · $12k · 3 🤖     │
 │ 📋 Health & Fitness               12 tsks · recurring       │
@@ -1449,14 +1449,14 @@ Risk: Looks weird, needs explanation
 [+ New Task]
 "3 tasks remaining"
 "Task completed"
-Domain is tskcanvas, but the product speaks normally
+Domain is mastercanvas, but the product speaks normally
 3. Hybrid—use both casually
 [+ Add Task]
-But the domain/logo is tskcanvas
+But the domain/logo is mastercanvas
 My Honest Take
 Option 2. Keep "tsk" in the brand name only.
 
-tskcanvas = the product
+mastercanvas = the product
 Canvas = the container
 Task = the item (normal word)
 
@@ -1507,7 +1507,7 @@ In the UI
 └─────────────────────────────────────────────────────────────┘
 Done
 
-tskcanvas = brand/domain
+mastercanvas = brand/domain
 Canvas Board = home
 Canvas = container
 Task = item
@@ -1516,7 +1516,7 @@ Normal words. No friction. Brand stays distinctive.
 What's next—building the summary view or the agent stuff?is canvas board make sense here or should it just be sometjing else3:51 PMJust "Board" might be enough.
 Or honestly, you might not need a label at all:
 ┌─────────────────────────────────────────────────────────────┐
-│ tskcanvas                                    [+ New Canvas] │
+│ mastercanvas                                    [+ New Canvas] │
 ├─────────────────────────────────────────────────────────────┤
 │ 📋 Q1 Planning                    47 tasks · $12k · 3 🤖    │
 │ 📋 Health & Fitness               12 tasks · recurring      │
@@ -1532,11 +1532,11 @@ But the disapproval sound association is real
 And you're solving something bigger than just tasks
 
 What If "Tsk" Isn't About the Sound?
-What if it's just... the word you invented for "a unit of work in tskcanvas"?
+What if it's just... the word you invented for "a unit of work in mastercanvas"?
 No explanation needed. No sound reference.
 
 "What's a tsk?"
-"It's what we call items in tskcanvas. Could be a task, a goal, a link, whatever."
+"It's what we call items in mastercanvas. Could be a task, a goal, a link, whatever."
 
 It's just your thing. Like how Slack has "channels" and Notion has "blocks."
 Or Go Fully Original
@@ -1548,17 +1548,17 @@ The product solves big problems. The name of the little pieces doesn't have to c
 What matters more—the term, or shipping?bitcanvas is pretty good, but the domain is 12k3:59 PMYeah that's too much for a domain.
 The Reality
 
-tskcanvas.com - you have it
+mastercanvas.app - you have it
 It works
 "Task canvas" is clear
 The brand is fine
 
 You're spending energy on naming that could go into shipping.
 Quick Gut Check
-DomainStatustskcanvas.com✓ You own itbitcanvas.com$12k, not worth ittaskcanvas.comCompetitor using similar name
-tskcanvas wins by default. And honestly, it's good enough.
+DomainStatusmastercanvas.app✓ You own itbitcanvas.com$12k, not worth ittaskcanvas.comCompetitor using similar name
+mastercanvas wins by default. And honestly, it's good enough.
 Nobody remembers Notion for the name. They remember it because it works.
-Ship tskcanvas. If it blows up and you want to rebrand later, you'll have the money.
+Ship mastercanvas. If it blows up and you want to rebrand later, you'll have the money.
 What's the next thing to build?intead of Your Canvases could we use All Canvas and then show the canvas board does that work4:11 PMYeah, "All Canvases" works better than "Your Canvases" or "My Canvases."
 ┌─────────────────────────────────────────────────────────────┐
 │ All Canvases                                 [+ New Canvas] │
@@ -1618,7 +1618,7 @@ Less is more. You got it.I really want to have bit problems put into the pubilc 
 │ 💬 Discussion · 📊 Progress · 🏆 Top Contributors           │
 └─────────────────────────────────────────────────────────────┘
 What Makes This Different
-PlatformApproachRedditDiscussion, no structureWikipediaInformation, not actionGitHub IssuesTechnical, not generalPrize competitionsOne winner, closedtskcanvasStructured breakdown, open collaboration, agents helping
+PlatformApproachRedditDiscussion, no structureWikipediaInformation, not actionGitHub IssuesTechnical, not generalPrize competitionsOne winner, closedmastercanvasStructured breakdown, open collaboration, agents helping
 You're giving big problems the same treatment you give personal goals—break it down, track progress, automate what you can, let anyone contribute.
 The Canvas Types (Future)
 ├── My Canvas (personal)
